@@ -1,6 +1,6 @@
 from agno.agent import Agent
 
-from config import get_model
+from config import get_model, memory_db
 
 
 def create_technical_agent(conversation_context: str) -> Agent:
@@ -8,6 +8,8 @@ def create_technical_agent(conversation_context: str) -> Agent:
     return Agent(
         name="Technical Agent",
         model=get_model(),
+        db=memory_db,
+        store_history_messages=True,
         add_history_to_context=True,
         additional_context=conversation_context,
         instructions="""\

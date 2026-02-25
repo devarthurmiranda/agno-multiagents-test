@@ -1,7 +1,7 @@
 from agno.agent import Agent
 from agno.tools import Function
 
-from config import get_model
+from config import get_model, memory_db
 
 # Mutable state used to signal routing from inside the tool call
 routing_state: dict[str, str | None] = {"category": None}
@@ -35,6 +35,8 @@ def create_categorizer_agent() -> Agent:
         name="Categorizer",
         model=get_model(),
         tools=[route_function],
+        db=memory_db,
+        store_history_messages=True,
         add_history_to_context=True,
         instructions="""\
 You are a friendly routing assistant. Your job is to figure out whether the
